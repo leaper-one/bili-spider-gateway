@@ -1,0 +1,71 @@
+package main
+
+import (
+	"fmt"
+	"ginForBH/global"
+	initialize "ginForBH/initialize"
+	"ginForBH/model"
+	"time"
+)
+
+func main() {
+	initialize.InitMysql()
+	seltest()
+}
+
+func createtest() {
+	var rank = []model.RankModel{
+		{
+			Uid:       131000111,
+			RoomId:    600111,
+			Rank:      500000,
+			Qn:        10000,
+			HasNote:   true,
+			Timestamp: time.Now().Unix(),
+		},
+		{
+			Uid:       131000222,
+			RoomId:    600111,
+			Rank:      1000000,
+			Qn:        20000,
+			HasNote:   true,
+			Timestamp: time.Now().Unix(),
+		},
+		{
+			Uid:       131000333,
+			RoomId:    600000,
+			Rank:      500000,
+			Qn:        10000,
+			HasNote:   true,
+			Timestamp: time.Now().Unix(),
+		},
+		{
+			Uid:       131000444,
+			RoomId:    600000,
+			Rank:      200000,
+			Qn:        5000,
+			HasNote:   true,
+			Timestamp: time.Now().Unix(),
+		},
+	}
+	global.DB.Create(&rank)
+}
+
+func seltest() {
+	var ranks []model.RankModel
+	var datas []model.GetrankDatas
+
+	global.DB.Where("has_note = ?", true).Find(&ranks)
+	for _, r := range ranks {
+		datas = append(datas, model.GetrankDatas{Uid: r.Uid, Roomid: r.RoomId, Rank: r.Rank})
+	}
+	//fmt.Println(result.RowsAffected)
+	fmt.Printf("len=%d cap=%d slice=%v\n", len(datas), cap(datas), datas)
+
+	global.DB.Where("room_id = ?", 600111).Find(&ranks)
+	for _, r := range ranks {
+		datas = append(datas, model.GetrankDatas{Uid: r.Uid, Roomid: r.RoomId, Rank: r.Rank})
+	}
+	//fmt.Println(result.RowsAffected)
+	fmt.Printf("len=%d cap=%d slice=%v\n", len(datas), cap(datas), datas)
+}

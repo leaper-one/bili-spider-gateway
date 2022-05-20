@@ -1,24 +1,19 @@
 package model
 
-type PostFormGet struct {
-	Msg       string    `json:"msg"`
-	Timestamp int       `json:"timestamp"`
-	Datas     []DataGet `json:"data"`
+type Getrank struct {
+	Msg       string `json:"msg"`
+	Timestamp int64  `json:"timestamp"`
+	Roomid    int    `json:"roomid"`
 }
 
-type DataGet struct {
-	Uid    string `json:"uid"`
-	Roomid string `json:"roomid"`
+type Hasnote struct {
+	Msg       string         `json:"msg"`
+	Timestamp int64          `json:"timestamp"`
+	Secret    string         `json:"secret"`
+	Data      []HasnoteDatas `json:"data"`
 }
 
-type PostFormBack struct {
-	Msg       string     `json:"msg"`
-	Timestamp int        `json:"timestamp"`
-	Datas     []DataBack `json:"data"`
-}
-
-type DataBack struct {
-	Uid    string `json:"uid"`
-	Roomid string `json:"roomid"`
-	Rank   int    `json:"rank"`
+type HasnoteDatas struct {
+	Uid    int `json:"uid"`
+	Roomid int `json:"roomid"`
 }
