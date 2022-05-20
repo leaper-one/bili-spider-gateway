@@ -11,7 +11,7 @@ import (
 
 func main() {
 	var err error
-	initialize.InitMysql()
+	initialize.InitAll()
 	r := gin.Default()
 
 	r.POST("/bililive/api/getrank", func(c *gin.Context) {
