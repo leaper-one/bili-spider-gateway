@@ -20,8 +20,8 @@ RUN go build -o bh main.go
 
 FROM alpine:latest as prod
 
-WORKDIR /prod/
+WORKDIR /prod
 
-COPY --from=0 /go/src/ginForBH/bh .
+COPY --from=builder /go/src/ginForBH/bh ./
 
 CMD ["./bh"]
