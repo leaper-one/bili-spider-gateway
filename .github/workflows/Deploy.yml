@@ -12,14 +12,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: 1.17.10
-
-      - name: Build
-        run: CGO_ENABLED=0 GO111MODULE=on GOOS=linux GOARCH=amd64 go build -o bh main.go
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -39,16 +31,6 @@ jobs:
         with:
           push: true
           tags: cunoe/bh:latest
-          
-      - name: SCP Files
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          port: ${{ secrets.PORT }}
-          password: ${{ secrets.PASSWORD }}
-          source: 'bh'
-          target: ${{ secrets.TARGET }}
 
       - name: SSH Remote Commands
         uses: appleboy/ssh-action@master
