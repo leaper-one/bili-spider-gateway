@@ -1,5 +1,5 @@
 # 基础镜像
-FROM golang:1.17.10 as builder
+FROM golang:1.17.8-alpine as builder
 
 RUN apk --no-cache add git
 MAINTAINER cunoe
