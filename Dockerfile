@@ -1,27 +1,24 @@
 # 基础镜像
 FROM golang:1.17.10 as builder
 
+RUN apk --no-cache add git
 MAINTAINER cunoe
 
-# 环境变量
-ENV GO111MODULE=on \
-    CGO_ENABLED=1 \
-    GOOS=linux \
-    GOARCH=amd64
-
 # 操作目录
-WORKDIR /go/src/ginForBH
+WORKDIR /go/src/ginForBH/
 
 # 复制源文件至操作目录
 COPY . .
 
 # 编译
-RUN go build -o bh main.go
+RUN GO111MODULE=on CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o app main.go
 
 FROM alpine:latest as prod
 
-WORKDIR /prod
+RUN apk --no-cache add ca-certificates
 
-COPY --from=builder /go/src/ginForBH/bh ./
+WORKDIR /root/
 
-CMD ["/prod/bh"]
+COPY --from=builder /go/src/ginForBH/app .
+
+CMD ["./app"]
