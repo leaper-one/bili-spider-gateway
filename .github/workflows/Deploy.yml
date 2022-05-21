@@ -32,6 +32,9 @@ jobs:
           push: true
           tags: cunoe/bh:latest
 
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
       - name: SSH Remote Commands
         uses: appleboy/ssh-action@master
         with:
