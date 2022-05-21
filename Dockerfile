@@ -11,7 +11,7 @@ WORKDIR /go/src/ginForBH/
 COPY . .
 
 # 编译
-RUN GO111MODULE=on CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o app main.go
+RUN GO111MODULE=on CGO_ENABLED=0 GOOS=linux GOARCH=amd64 GIN_MODE=release go build -o app main.go
 
 FROM alpine:latest as prod
 
