@@ -1,7 +1,8 @@
 package main
 
-import "ginForBH/cmd"
+import "ginForBH/gins"
 
 func main() {
-	cmd.Execute()
+	//cmd.Execute()
+	gins.GinService()
 }
