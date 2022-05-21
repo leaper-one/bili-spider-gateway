@@ -17,8 +17,6 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: 1.17.10
-      - name: GetConfig
-        run: wget ${{ secrets.CONFIG }}
 
       - name: Build
         run: CGO_ENABLED=0 GO111MODULE=on GOOS=linux GOARCH=amd64 go build -o bh main.go
