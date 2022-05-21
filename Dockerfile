@@ -1,5 +1,5 @@
 # 基础镜像
-FROM golang:1.17.10
+FROM golang:1.17.10 as builder
 
 MAINTAINER cunoe
 
@@ -18,5 +18,10 @@ COPY . .
 # 编译
 RUN go build -o bh main.go
 
+FROM alpine:latest as prod
+
+WORKDIR /prod/
+
+COPY --from=0 /go/src/ginForBH/bh .
 
 CMD ["./bh"]
