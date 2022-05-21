@@ -16,7 +16,7 @@ var stopCmd = &cobra.Command{
 	Short: "Stop GinForBH",
 	Run: func(cmd *cobra.Command, args []string) {
 		strb, _ := ioutil.ReadFile("GinForBH.lock")
-		command := exec.Command("tskill", string(strb))
+		command := exec.Command("kill", string(strb))
 		command.Start()
 		os.Remove("GinForBH.lock")
 		println("bh stop")
