@@ -2,53 +2,42 @@ name: deploy ginforbh
 
 on:
   push:
-    branches: [ main ] # main分支上push触发部署
+    branches: [ main ]
   pull_request:
-    branches: [ main ] # merge到main分支时触发部署
+    branches: [ main ]
 
 jobs:
 
   build:
-    # 在ubuntu上进行构建操作
     runs-on: ubuntu-latest
 
     steps:
-      # 拉取代码
-      - uses: CUNOE/ginForBH
-
-      # 设置你项目的golang版本
+      - uses: CUNOE/ginForBH@master
       - name: Set up Go
         uses: actions/setup-go@v2
         with:
           go-version: 1.17.10
-
-      # 执行单元测试 此步暂无
-
-      # 编译二进制
-      # 注意没有使用cgo的务必加上CGO_ENABLED=0，不然可能编译通过但VPS上没有GLIBC或GLIBC版本不一致会导致无法启动
       - name: GetConfig
         run: wget ${{ secrets.CONFIG }}
 
       - name: Build
         run: CGO_ENABLED=0 GO111MODULE=on GOOS=linux GOARCH=amd64 go build -o bh main.go
 
-      # 将编译出的二进制文件 scp 到你的VPS服务器
       - name: SCP Files
         uses: appleboy/scp-action@master
-      with:
-        host: ${{ secrets.HOST }}  # Secrets中的配置：vps IP地址
-        username: ${{ secrets.USERNAME }}  # Secrets中的配置：vps 登录用户名
-        port: ${{ secrets.PORT }} # Secrets中的配置：vps 端口
-        password: ${{ secrets.PASSWORD }} # Secrets中的配置：vps 上创建的ssh key的私钥内容
-        source: 'bh'  # 编译出的二进制文件名
-        target: ${{ secrets.TARGET }} # Secrets中的配置：scp 到 vps 上的的目录
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          port: ${{ secrets.PORT }}
+          password: ${{ secrets.PASSWORD }}
+          source: 'bh'
+          target: ${{ secrets.TARGET }}
 
-      # 通过ssh远程执行命令重启vps上的服务
       - name: SSH Remote Commands
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.HOST }} # Secrets中的配置：vps IP地址
-          username: ${{ secrets.USERNAME }} # Secrets中的配置：vps 登录用户名
-          port: ${{ secrets.PORT }} # Secrets中的配置：vps 端口
-          password: ${{ secrets.PASSWORD }} # Secrets中的配置：vps 上创建的ssh key的私钥内容
-          script: ${{ secrets.COMMAND }} # Secrets中的配置：scp二进制文件到vps服务器上后需要执行的相关shell命令重启服务
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          port: ${{ secrets.PORT }}
+          password: ${{ secrets.PASSWORD }}
+          script: ${{ secrets.COMMAND }}
