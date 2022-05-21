@@ -24,4 +24,4 @@ WORKDIR /prod
 
 COPY --from=builder /go/src/ginForBH/bh ./
 
-CMD ["./bh"]
+CMD ["/prod/bh"]
