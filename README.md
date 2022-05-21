@@ -6,6 +6,6 @@
 # Use
 
 ```bash
-bh start	//启动
-bh stop		//停止
+go build -o bh main.go
+./bh
 ```
