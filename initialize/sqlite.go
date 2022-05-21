@@ -8,6 +8,10 @@ import (
 	"log"
 )
 
+/*
+该文件用于初始化Sqlite数据库
+*/
+
 func InitSqlite() {
 	db, err := gorm.Open(sqlite.Open("./Database/sqlite.db"), &gorm.Config{})
 	if err != nil {

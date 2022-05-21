@@ -4,37 +4,20 @@ import (
 	"ginForBH/errorinit"
 	"ginForBH/global"
 	"ginForBH/model"
-	"log"
+	"ginForBH/rank"
 	"time"
 )
 
+/*
+该文件为处理函数
+*/
+
 func PostGetrank(info model.Getrank) (back model.GetrankBack, err error) {
+	timestamp := time.Now().Unix()
 
-	var ranks []model.RankModel
-	var datas []model.GetrankDatas
-	var timestamp = time.Now().Unix()
-
-	switch {
-	case info.Roomid == 0 && info.Timestamp == 0:
-		global.DB.Where("has_note = ?", true).Find(&ranks)
-	case info.Roomid != 0 && info.Timestamp == 0:
-		r := global.DB.Where("has_note = ?", true).Find(&ranks)
-		r.Where("room_id = ?", info.Roomid).Find(&ranks)
-	case info.Roomid == 0 && info.Timestamp != 0:
-		r := global.DB.Where("has_note = ?", true).Find(&ranks)
-		r.Where("timestamp > ?", info.Timestamp)
-	case info.Roomid != 0 && info.Timestamp != 0:
-		r := global.DB.Where("has_note = ?", true).Find(&ranks)
-		r.Where("room_id = ?", info.Roomid).Find(&ranks)
-		r.Where("timestamp > ?", info.Timestamp)
-	default:
-		err = errorinit.PostValueError
-		log.Println(err)
+	datas, err := rank.Getrank(info)
+	if err != nil {
 		return
-	}
-
-	for _, r := range ranks {
-		datas = append(datas, model.GetrankDatas{Uid: r.Uid, Roomid: r.RoomId, Rank: r.Rank})
 	}
 
 	back = model.GetrankBack{
@@ -54,35 +37,36 @@ func PostHasnote(info model.Hasnote) (err error) {
 		return
 	}
 
-	if hasnote != nil {
-		for _, h := range hasnote {
-			var rank model.RankModel
-			r := global.DB.Where("has_note = ?", false).Find(&rank)
-			r.Where("room_id = ?", h.Roomid).Find(&rank)
-			r.Model(&rank).Where("uid = ?", h.Uid).Update("has_note", true)
+	if len(hasnote) != 0 {
+		switch {
+		case info.Msg == "hasnote":
+			rank.Hasnote(hasnote)
+		case info.Msg == "denote":
+			rank.Denote(hasnote)
+		default:
+			err = errorinit.PostValueError
+			return err
 		}
 	}
 
 	return
 }
 
-func PostDenote(info model.Hasnote) (err error) {
-	var hasnote = info.Data
+func PostRanke(info model.Ranke) (err error) {
+	var nrank = info.Data
+	var rankes []model.RankModel
 
 	if info.Secret != global.Secret {
 		err = errorinit.SecretError
 		return
 	}
 
-	if hasnote != nil {
-		for _, h := range hasnote {
-			var rank model.RankModel
-			r := global.DB.Where("has_note = ?", true).Find(&rank)
-			r.Where("room_id = ?", h.Roomid).Find(&rank)
-			r.Where("uid = ?", h.Uid).Find(&rank)
-			r.Model(&rank).Update("has_note", false)
+	if nrank != nil {
+		for _, r := range nrank {
+			rankes = append(rankes, rank.Rank(r))
 		}
 	}
 
+	global.DB.Create(&rankes)
 	return
 }

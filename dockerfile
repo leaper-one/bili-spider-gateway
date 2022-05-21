@@ -19,7 +19,4 @@ COPY . .
 # 编译
 RUN go build -o ginForBH main.go
 
-# 暴露端口
-EXPOSE 3000
-
 CMD ["./ginForBH"]

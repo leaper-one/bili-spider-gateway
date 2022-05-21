@@ -1,5 +1,9 @@
 package model
 
+/*
+该文件为数据库模型
+*/
+
 type RankModel struct {
 	ID        int   `gorm:"primaryKey"`          // id
 	Uid       int   `gorm:"default:0"`           // uid

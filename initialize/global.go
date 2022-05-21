@@ -8,6 +8,10 @@ import (
 	"log"
 )
 
+/*
+该文件为用于初始化全局变量的函数
+*/
+
 func InitGlobal() {
 	var conf model.Config
 
@@ -21,8 +25,9 @@ func InitGlobal() {
 		log.Printf(err.Error())
 	}
 
-	global.Secret = conf.Globalsecret
+	global.Secret = conf.GlobalSecret
 	global.Dsn = setDsn(conf)
+	global.ExposePort = conf.ServerExposePort
 }
 
 func setDsn(c model.Config) (dsn string) {
