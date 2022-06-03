@@ -1,13 +1,14 @@
 package gins
 
 import (
-	"ginForBH/global"
-	"ginForBH/handle"
-	"ginForBH/initialize"
-	"ginForBH/model"
-	"github.com/gin-gonic/gin"
 	"net/http"
 	"time"
+
+	"github.com/gin-gonic/gin"
+	"github.com/leaper-one/bili-spider-gateway/global"
+	"github.com/leaper-one/bili-spider-gateway/handle"
+	"github.com/leaper-one/bili-spider-gateway/initialize"
+	"github.com/leaper-one/bili-spider-gateway/model"
 )
 
 func GinService() {
