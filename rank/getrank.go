@@ -1,10 +1,11 @@
 package rank
 
 import (
-	"ginForBH/errorinit"
-	"ginForBH/global"
-	"ginForBH/model"
 	"log"
+
+	"github.com/leaper-one/bili-spider-gateway/errorinit"
+	"github.com/leaper-one/bili-spider-gateway/global"
+	"github.com/leaper-one/bili-spider-gateway/model"
 )
 
 func Getrank(info model.Getrank) (datas []model.GetrankDatas, err error) {

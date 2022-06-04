@@ -1,9 +1,10 @@
 package rank
 
 import (
-	"ginForBH/global"
-	"ginForBH/model"
 	"time"
+
+	"github.com/leaper-one/bili-spider-gateway/global"
+	"github.com/leaper-one/bili-spider-gateway/model"
 )
 
 /*

@@ -1,11 +1,12 @@
 package initialize
 
 import (
-	"ginForBH/global"
-	"ginForBH/model"
+	"log"
+
+	"github.com/leaper-one/bili-spider-gateway/global"
+	"github.com/leaper-one/bili-spider-gateway/model"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
-	"log"
 )
 
 /*

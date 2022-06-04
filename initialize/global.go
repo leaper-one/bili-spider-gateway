@@ -2,10 +2,11 @@ package initialize
 
 import (
 	"encoding/json"
-	"ginForBH/global"
-	"ginForBH/model"
 	"io/ioutil"
 	"log"
+
+	"github.com/leaper-one/bili-spider-gateway/global"
+	"github.com/leaper-one/bili-spider-gateway/model"
 )
 
 /*

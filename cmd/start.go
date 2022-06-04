@@ -2,11 +2,12 @@ package cmd
 
 import (
 	"fmt"
-	"ginForBH/gins"
-	"github.com/spf13/cobra"
 	"io/ioutil"
 	"os"
 	"os/exec"
+
+	"github.com/leaper-one/bili-spider-gateway/gins"
+	"github.com/spf13/cobra"
 )
 
 func init() {

@@ -1,11 +1,12 @@
 package handle
 
 import (
-	"ginForBH/errorinit"
-	"ginForBH/global"
-	"ginForBH/model"
-	"ginForBH/rank"
 	"time"
+
+	"github.com/leaper-one/bili-spider-gateway/errorinit"
+	"github.com/leaper-one/bili-spider-gateway/global"
+	"github.com/leaper-one/bili-spider-gateway/model"
+	"github.com/leaper-one/bili-spider-gateway/rank"
 )
 
 /*
