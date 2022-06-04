@@ -1,8 +1,8 @@
 package rank
 
 import (
-	"ginForBH/global"
-	"ginForBH/model"
+	"github.com/leaper-one/bili-spider-gateway/global"
+	"github.com/leaper-one/bili-spider-gateway/model"
 )
 
 func Hasnote(hasnote []model.HasnoteDatas) {

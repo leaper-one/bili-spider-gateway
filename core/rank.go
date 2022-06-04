@@ -19,6 +19,6 @@ type (
 
 	BiliRankStore interface {
 		Save(ctx context.Context, rank *BiliRank) error
-		GetRanks(ctx context.Context, room_id int64, time_stamp time.Time) ([]*BiliRank, error)
+		GetRanks(ctx context.Context, room_id, limit int64, time_stamp time.Time) ([]*BiliRank, error)
 	}
 )
